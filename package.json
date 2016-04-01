@@ -5,6 +5,7 @@
   "license": "MIT",
   "author": "Robbie Weaver",
   "dependencies": {
+    "ampersand-app": "^1.0.4",
     "ampersand-collection": "^1.6.1",
     "ampersand-state": "^5.0.0",
     "ampersand-view": "^9.0.2",
@@ -15,6 +16,7 @@
     "peerjs": "^0.3.14"
   },
   "devDependencies": {
+    "raw-loader": "^0.5.1",
     "webpack": "^1.12.14"
   }
 }

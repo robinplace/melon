@@ -21,14 +21,16 @@ const Peers = AndCollection.extend ({
             debug: 3,
         })
 
-        this.peer.on ('open',         bind (this.trigger, this, 'open'))
+        let peers = this
+
         this.peer.on ('disconnected', bind (this.trigger, this, 'disconnected'))
         this.peer.on ('close',        bind (this.trigger, this, 'close'))
         this.peer.on ('error',        bind (this.trigger, this, 'error'))
         this.peer.on ('connection',   bind (this.trigger, this, 'connection'))
 
-        this.on ('open', function (id) {
-            this.id = id
+        this.peer.on ('open', function (id) {
+            peers.id = id
+            peers.trigger ('ready', id)
         })
 
         this.on ('connection', function (data) {

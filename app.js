@@ -1,8 +1,12 @@
 'use strict'
-const Peers = require ('./state/peers')
-const Svr = require ('./state/svr')
+var app = require ('ampersand-app')
 
-window.Peers = Peers
-window.Svr = Svr
 
+const AppView = require ('./view/app.view')
+
+new AppView ({
+    el: document.body,
+})
+
+window.app = app
 window.console.log = window.console.log.bind (window.console)
