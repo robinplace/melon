@@ -46,6 +46,12 @@ if ($_GET ['a'] === 'make') {
         $ids [] = $row ['user'];
     }
 
+    // fail if absolutely nothing was found
+    if (count ($ids) === 0) {
+        header ('HTTP/1.1 400 Bad Request');
+        exit;
+    }
+
     echo implode (',', $ids);
     exit;
 } else if ($_GET ['a'] === 'join') {

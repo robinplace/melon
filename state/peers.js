@@ -9,11 +9,9 @@ const Peers = AndCollection.extend ({
     model: Peer,
     mainIndex: 'uuid',
 
-    props: {
-        id: 'string',
-    },
     session: {
         peer: 'object',
+        id: 'string',
     },
     initialize: function () {
         if (!this.peer) this.peer = new PeerJS ({

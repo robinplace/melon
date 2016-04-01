@@ -10,11 +10,14 @@ const Peers = require ('./peers')
 //const Brainstorm = require ('./state/brainstorm')
 
 const Room = AndState.extend ({
-    session: {
-        peers: 'object',
-
+    props: {
         code: 'string',
         secret: 'string',
+    },
+    collections: {
+        peers: Peers,
+    },
+    session: {
         id: 'string',
     },
     children: {
@@ -23,7 +26,6 @@ const Room = AndState.extend ({
     initialize: function () {
         let room = this
 
-        room.peers = new Peers ()
         room.peers.on ('ready', function (id) {
             room.id = id
             room.trigger ('peersready')
@@ -49,13 +51,22 @@ const Room = AndState.extend ({
         room.code = code // store the room code
 
         Svr.lookup (code, function (err, users) {
-            if (err) return app.err ('lookup failed')
+            if (err) {
+                if (err.status === 400) return room.trigger ('badcode')
+                return app.err ('lookup failed')
+            }
 
             room.code = code // store the room code
+
+            users = users.map (function (userId) {
+                return { id: userId }
+            })
+            room.peers.add (users)
 
             // contact a peer to get the state of things
             room.peers.once ('allowed', function (secret, data) {
                 this.set (data) // TODO this should do it?
+
                 room.secret = secret // store the room secret
 
                 Svr.join (room.id, room.code, room.secret, function (err) {

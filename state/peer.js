@@ -1,5 +1,6 @@
 'use strict'
 const AndState = require ('ampersand-state')
+const bind = require('lodash.bind')
 const UUID = require ('node-uuid')
 
 const Peer = AndState.extend ({

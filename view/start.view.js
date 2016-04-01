@@ -18,22 +18,28 @@ const StartView = AndView.extend ({
                 // TODO let them know that we're having success
             })
             room.once ('roomready', function () {
-                alert ('it is good')
+                alert ('it is good and you got '+room.code)
             })
             room.makeRoom ()
         },
-        'focus [data-hook=join]': function () {
+        'keyup [data-hook=join]': function (ev) {
+            if (ev.target.value.length < 6) return
+            let code = ev.target.value
+
             // TODO show the loading box
             let room = new Room ()
             app.room = room
 
+            room.once ('badcode', function () {
+                // TODO hide the box and make what happened clear
+            })
             room.once ('peerready', function () {
                 // TODO let them know that we're having success
             })
             room.once ('roomready', function () {
                 alert ('it is good')
             })
-            room.makeRoom ()
+            room.joinRoom (code)
 
         },
     },
