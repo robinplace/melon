@@ -1,0 +1,18 @@
+{
+  "name": "melon-workspace",
+  "version": "0.0.1",
+  "description": "Lightning quick developer workflow",
+  "license": "MIT",
+  "author": "Robbie Weaver",
+  "dependencies": {
+    "ampersand-collection": "^1.6.1",
+    "ampersand-state": "^5.0.0",
+    "ampersand-view": "^9.0.2",
+    "ampersand-view-switcher": "^2.1.0",
+    "lodash": "^4.7.0",
+    "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "webpack": "^1.12.14"
+  }
+}
