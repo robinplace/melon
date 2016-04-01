@@ -1,16 +1,19 @@
 <?php
 
 /*
- * ?make&user=lao28740
+ * ?a=make&user=lao28740
+ * code,secret
  *
- * ?lookup&code=13902
+ * ?a=lookup&code=13902
+ * user,user,user,usr
  *
- * ?join&code=13902&secret=difj9283uro&user=o20u2rijlj
+ * ?a=join&code=13902&secret=difj9283uro&user=o20u2rijlj
+ * success
  */
 
 $db = new SQLite3 ('rooms.db');
 
-if (isset ($_GET ['make'])) {
+if ($_GET ['a'] === 'make') {
     $user = $db->escapeString ($_GET ['user']);
 
     do {
@@ -33,7 +36,7 @@ if (isset ($_GET ['make'])) {
 
     echo $code.','.$secret;
     exit;
-} else if (isset ($_GET ['lookup'])) {
+} else if ($_GET ['a'] === 'lookup') {
     $code = intval ($db->escapeString ($_GET ['code']));
 
     $res = $db->query ('SELECT `user` FROM `room_users`,`rooms` WHERE `room_users`.`room`=`rooms`.`id` AND `rooms`.`code`="'.$code.'"');
@@ -45,7 +48,7 @@ if (isset ($_GET ['make'])) {
 
     echo implode (',', $ids);
     exit;
-} else if (isset ($_GET ['join'])) {
+} else if ($_GET ['a'] === 'join') {
     $code = intval ($db->escapeString ($_GET ['code']));
     $secret = $db->escapeString ($_GET ['secret']);
     $user = $db->escapeString ($_GET ['user']);
@@ -53,14 +56,13 @@ if (isset ($_GET ['make'])) {
     $res = $db->query ('SELECT `id` FROM `rooms` WHERE `code`="'.$code.'" AND `secret`="'.$secret.'"');
     $row = $res->fetchArray (SQLITE3_ASSOC);
     if ($row === false) {
-        echo 'fail';
+        header ('HTTP/1.1 400 Bad Request');
         exit;
     }
     $id = $row ['id'];
 
     $res = @$db->query ('INSERT INTO `room_users` (`room`, `user`) VALUES ("'.$id.'", "'.$user.'")');
 
-    echo 'success';
     exit;
 }
 

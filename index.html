@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- served with <3, Robbie -->
+<meta charset="UTF-8"/>
+<link rel="shortcut icon" href="./favicon.png">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+<title>Work Together | Melon</title>
+
+<!--<link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css">-->
+<!--<link href="bundle.css" rel="stylesheet">-->
+
+<h1>Melon</h1>
+
+<button class="green">Accept</button>
+<br/>
+<input type="text" placeholder="••••••"/>
+
+<style>
+body {
+    margin: 20px;
+    font: normal 20px 'Fira Sans', sans-serif;
+    color: #ecf0f1;
+    background-color: #2c3e50;
+}
+h1 {
+    font-weight: 100;
+}
+input, button {
+    margin: 6px;
+}
+input {
+    padding: 12px 24px;
+    color: #2c3e50;
+    background-color: #ecf0f1;
+    border: 0;
+    border-top: 4px solid rgba(0,0,0,0.3);
+    font: inherit;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+button {
+    padding: 12px 24px;
+    border: 0;
+    background-color: #34495e;
+    color: #ecf0f1;
+    font: inherit;
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    text-shadow: 0 -2px 0 rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: top 100ms;
+    outline: 0;
+}
+button::after {
+    content: ''; display: block;
+    background-color: inherit;
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+    position: absolute;
+    left: 0; right: 0;
+    transition: bottom 100ms, height 100ms;
+}
+
+button { top: -4px; }
+button::after { bottom: -4px; height: 4px; }
+button:hover { top: -7px; }
+button:hover::after { bottom: -7px; height: 7px; }
+button:active { top: -2px; transition: none; }
+button:active::after { bottom: -2px; height: 2px; transition: none; }
+
+.green {
+    background-color: #2ecc71;
+}
+</style>
+
+<script src="./bundle.js"></script>
