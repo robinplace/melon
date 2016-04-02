@@ -13,6 +13,8 @@ const ShortlistView = AndView.extend ({
 
         this.canvas = this.queryByHook ('pad')
         this.ctx = this.canvas.getContext ('2d')
+        this.ctx.strokeStyle = '#2c3e50'
+        this.ctx.fillStyle = '#2c3e50'
     },
     drawDot: function (x,y,size) {
         this.ctx.beginPath();
@@ -36,6 +38,10 @@ const ShortlistView = AndView.extend ({
         },
         'mouseup [data-hook=pad]': function (ev) {
             this.up (ev.offsetX, ev.offsetY)
+        },
+        'click [data-color]': function (ev) {
+            this.ctx.strokeStyle = ev.target.getAttribute ('data-color')
+            this.ctx.fillStyle = ev.target.getAttribute ('data-color')
         },
     },
     down: function (mouseX, mouseY) {
