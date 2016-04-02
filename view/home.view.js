@@ -32,7 +32,7 @@ const HomeView = AndView.extend ({
         this.renderWithTemplate ()
     },
     events: {
-        'click [data-hook=drawingboard]': function () { this.swap ('drawingboard') },
+        'click [data-hook=drawingboard]': function () { this.swap ('sketchpad') },
         'click [data-hook=todo]':         function () { this.swap ('todo') },
         'click [data-hook=brainstorm]':   function () { this.swap ('brainstorm') },
         'click [data-hook=talk]':         function () { app.view.toggleTalk () },

@@ -10,6 +10,7 @@ const NotificationDialogView = require ('../view/notification.dialog.view')
 const NotificationView = require ('../view/notification.view')
 
 const Brainstorm = require ('./brainstorm')
+const Shortlist = require ('./shortlist')
 
 // THIS SHOULD SORTA BE A VIEW
 const Room = AndState.extend ({
@@ -21,6 +22,7 @@ const Room = AndState.extend ({
         peers: Peers,
 
         brainstorm: Brainstorm,
+        shortlist: Shortlist,
     },
     addins: function () {
         this.addin ('brainstorm')

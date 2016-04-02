@@ -4,10 +4,12 @@ body {
 	color: white;
 	font-family: fira sans;
 	font-weight: 300;
-	overflow: none;
+	overflow: hidden;
 	width: 100%;
 	height: 100%;
 }
+
+img { width: auto; height: auto; }
 
 .title a {margin-top: 10px;}
 .title img {
@@ -20,6 +22,7 @@ body {
 	text-align: center;
 	color: white;
 	z-index: 100;
+    position: absolute;
 }
 
 /*Devider line: only on melon*/
@@ -87,13 +90,14 @@ footer, .footer {
 	right: 0;
 }
 .block {
-	width: 16.666666666667%;
+	width: 20%;
 	height: 90px;
 	padding: 0;
 	padding-top: 10px;
 	margin-top: 10px;
 	float: left;
 	border-top: 7px solid rgba(0,0,0,.3);
+    text-align: center;
 }
 
 
@@ -115,7 +119,13 @@ footer, .footer {
 
 
 /*generic color styles*/
-img {height: 80%; width: 80%; margin: 0 auto; padding: 0;}
+.block img,
+.sidebar img {
+    height: 80%;
+    width: 80%;
+    margin: 0 auto;
+    padding: 0;
+}
 
 
 
@@ -127,7 +137,7 @@ img {height: 80%; width: 80%; margin: 0 auto; padding: 0;}
 	background-color: #f39c12;
 }
 .thumbdrive {
-	background-color: #d35400;
+	background-color: #8e44ad;
 }
 .talk {
 	background-color: #8e44ad;
@@ -241,13 +251,13 @@ main{
 .homeMain {
 	float: left;
 	width: 33.33%;
-	height: 50%;
+	height: 100%;
 }
 .homeMain img {
 	width: 20%;
 	height: 20%;
 	position: absolute;
-	top: 3%;
+	top: 23%;
 	left: 2%;
 }
 .homeMain>div {
@@ -258,7 +268,7 @@ main{
 	font-size: 35px;
 	font-weight: bold;
 	position: absolute;
-	top: 10%;
+	top: 30%;
 	left: 18%;
 }
 .roomCode {
@@ -267,7 +277,7 @@ main{
 	font-weight: bold;
 	text-align: center;
 	position: absolute;
-	top: 20%;
+	top: 40%;
     text-align: center;
 	margin-top: 20px;
     width: 33.33%;
@@ -277,7 +287,7 @@ main{
 	width: 200px;
 	position: absolute;
     left: 16.66%;
-    top: 29%;
+    top: 49%;
 	margin-top: 20px;
 	margin-left: -124px;
 }
@@ -413,7 +423,7 @@ main{
 	padding-top: 5%;
 	padding-bottom: -5%;
 }
-.sidebarSix   {height: 28%; width: 100%;}
+.sidebarSix   {height: 40%; width: 100%;}
 .sidebarSix img {position: relative; top: 40%; left: 8%; margin-top: -40%;}
 
 
@@ -487,4 +497,145 @@ main{
     z-index: 20;
     opacity: 0;
     cursor: pointer;
+}
+
+
+
+.addItem {
+	width: 75%;
+	margin: 5% auto 0;
+	padding: 10px;
+	display: block;
+	font-size: 25px;
+}
+.todoItem {
+	margin: 0% 0% 0% 7.5%;
+	border-top: 4px solid #27ae60;
+	padding: 20px;
+	width: 85%;
+	float: left;
+}
+.todoItem img {
+	float: left;
+	width: 50px;
+	margin-right: 5px;
+}
+.todoItem.done a,.todoItem.done img {opacity: 0.25;}
+.todoItem a, .todoItem input {
+	float: left;
+	margin-left: 5px;
+	margin: 10px auto;
+	width: 75%;
+	display: block;
+}
+.todoItem input {
+    margin-top: -7px;
+    margin-bottom: -4px;
+    font-family: inherit;
+}
+.todoItemHolder {margin-top: 5%;}
+
+
+
+
+.elementHeader{
+    background-color:#1abc9c;
+}
+
+.elementTitle{
+    text-color:#fffff;
+}
+
+
+.loadingPage{
+    background-color:#34495e;
+    position: fixed;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    z-index: 300;
+    opacity: 0;
+    transform: scale(1.1);
+    visibility: collapse;
+    transition: 200ms 0.8s;
+}
+.loadingPage.open{
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+    transition: 600ms;
+}
+
+.loadingIcon{
+    position: absolute;
+    top:12.5%;
+    left: 12%;
+    margin-top:0px;
+    z-index: 99999;
+}
+
+.loadingIcon img{
+    width: 68%;
+    animation-name: rotate;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+
+}
+@keyframes rotate {
+    from{
+        transform: rotate(0deg) translate(5px);
+    }
+    to{
+        transform: rotate(360deg) translate(5px);
+    }
+}
+
+.connectingSession{
+    position:absolute;
+    top: 18%;
+    left: 35%;
+    color:#fff;
+    font-size:1.75vw;
+}
+
+.funnyTag{
+    position:absolute;
+    top:25%;
+    left: 35%;
+    color: #fff;
+    font-size:3.25vw;
+}
+
+.updateData{
+    position:absolute;
+    top: 60%;
+    left: 35%;
+    color: #fff;
+    font-size:1vw;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.loadingRep{
+    width:85%;
+    height:32%;
+    position:absolute;
+    top:35%;
+    background-color:#2ecc71;
+
+    z-index:0;
+}
+
+.melonIcon{
+    position:absolute;
+    top:70%;
+    left: 80%;
+    height:30%;
+    width:20%;
+}
+
+.melonIcon img{
+    height: 100%;
+    width: 100%;
 }

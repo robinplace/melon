@@ -12,8 +12,8 @@ const State = AndState.extend ({
         created: [ 'number', true, () => Date.now () ],
     },
     derived: {
-        sort: { deps: [ 'number', 'creator', 'created' ], fn: function () {
-            return this.number+' '+this.creator+' '+this.created
+        sort: { deps: [ 'counter', 'creator', 'created' ], fn: function () {
+            return this.counter+' '+this.creator+' '+this.created
         } },
     },
     // don't allow updates

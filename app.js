@@ -9,19 +9,20 @@ app.view = new AppView ({
 })
 
 app.messages = {
-    'making':  [ 'STARTING WORKTABLE', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
-    'joining': [ 'JOINING WORKTABLE', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
-    'authing': [ 'WAITING TO BE LET IN', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
+    'making':  [ 'STARTING WORKTABLE', 'We\'re starting up your group', 'Contacting the room server...' ],
+    'joining': [ 'JOINING WORKTABLE', 'Connecting you with your group', 'Contacting peers...' ],
+    'authing': [ 'GETTING PERMISSION', 'You\'re group will be including you shortly', 'Waiting for response...' ],
     '...': [ 'CONNECTING', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
 }
 // start working
 app.working = function (type) {
-    app.view.workingView.open = true
-
     let message = app.messages [type]
     app.view.workingView.title  = message [0]
     app.view.workingView.funny  = message [1]
     app.view.workingView.status = message [2]
+    app.view.workingView.error = false
+
+    app.view.workingView.open = true
 }
 app.done = function () {
     app.view.workingView.open = false

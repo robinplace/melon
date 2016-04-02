@@ -9,10 +9,12 @@ const WorkingView = AndView.extend ({
         title: 'string',
         funny: 'string',
         status: 'string',
+        error: 'boolean',
     },
     template: require ('../template/working.html'),
     autoRender: true,
     bindings: {
+        'error': { type: 'booleanClass', name: 'error' },
         'open': { type: 'booleanClass', name: 'open' },
         'title': { type: 'innerHTML', hook: 'title' },
         'funny': { type: 'innerHTML', hook: 'funny' },
