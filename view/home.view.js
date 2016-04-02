@@ -9,8 +9,8 @@ const HomeView = AndView.extend ({
     initialize: function () {
         this.render ()
     },
-    children: {
-        workView: WorkView,
+    props: {
+        workView: 'state',
     },
     bindings: {
         'workView.code': {

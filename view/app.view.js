@@ -18,8 +18,8 @@ const AppView = AndView.extend ({
     initialize: function () {
         this.startView = new StartView ({})
         this.workingView = new WorkingView ({}) // loading screen
-        this.homeView = new HomeView ({})
         this.workView = new WorkView ({})
+        this.homeView = new HomeView ({ workView: this.workView })
 
         this.render ()
 
