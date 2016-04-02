@@ -179,17 +179,23 @@ const Room = AndState.extend ({
             let blob = new Blob ([ view ])
             let url = window.URL.createObjectURL (blob)
 
-            document.location = url
+            let reader = new window.FileReader ()
+            reader.readAsDataURL (blob)
+            reader.onloadend = function () {
+                document.location = 'data:application/octet-stream;base64,'+
+                    reader.result.slice ('data:;base64,'.length)
+            }
         })
 
         this.addins ()
     },
     send: function (file) {
         let time = Date.now ()
-        this.peers.send ('wantit?', { name: 'A user', filename: file.name, time: time })
+        this.peers.send ('wantit?', { name: 'A user',
+                         filename: file.name, time: time })
         this.listenTo (this.peers, 'wantit', function (peer, data) {
             if (data.time === time) {
-                peer.send (file)
+                peer.data.send (file)
             }
         })
     },

@@ -16,7 +16,6 @@ const Peer = AndState.extend ({
         if (!this.data) {
             this.data = this.collection.peer.connect (this.id, {
                 reliable: true,
-                serialization: 'none',
             })
         }
         if (this.collection.talking) {
