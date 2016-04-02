@@ -400,6 +400,11 @@ main{
 	width: 100%;
     margin: 0;
 }
+.sidebar .shadow {
+    height: 12%;
+    width: 100%;
+    margin: 0;
+}
 .sidebar.current {
 	width: 105%;
 	height: 12%;
@@ -467,4 +472,19 @@ main{
     margin: -10px 5px;
     float: right;
     font-size: 0.9em;
+}
+
+
+.shadow-tile {
+    height: 50%;
+    width: 33.33%
+}
+
+
+.shadow {
+    position: absolute;
+    margin: 0; padding: 0; border: 0;
+    z-index: 20;
+    opacity: 0;
+    cursor: pointer;
 }

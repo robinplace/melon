@@ -163,8 +163,35 @@ const Room = AndState.extend ({
                 }
             }
         })
+        this.listenTo (this.peers, 'wantit?', function (peer, data) {
+            let time = data.time
+            app.notify (new NotificationDialogView ({
+                title: data.name+' is offering '+data.filename,
+                ok: 'Transfer',
+                cancel: 'Dismiss',
+            }).on ('ok', function () {
+                peer.send ('wantit', { time: time })
+            }).on ('cancel', function () {
+            }))
+        })
+        this.listenTo (this.peers, 'file', function (data) {
+            let view = new Uint8Array (data)
+            let blob = new Blob ([ view ])
+            let url = window.URL.createObjectURL (blob)
+
+            document.location = url
+        })
 
         this.addins ()
+    },
+    send: function (file) {
+        let time = Date.now ()
+        this.peers.send ('wantit?', { name: 'A user', filename: file.name, time: time })
+        this.listenTo (this.peers, 'wantit', function (peer, data) {
+            if (data.time === time) {
+                peer.send (file)
+            }
+        })
     },
 })
 

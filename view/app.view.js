@@ -44,6 +44,8 @@ const AppView = AndView.extend ({
                                           : 'Work Together---Melon'
             },
         })
+
+        this.file = this.queryByHook ('file')
     },
     goHome: function () {
         this.switcher.set (this.homeView)
@@ -58,6 +60,12 @@ const AppView = AndView.extend ({
         } else {
             app.room.peers.talk ()
         }
+    },
+    events: {
+        'change input[type=file]': function (ev) {
+            let input = ev.target
+            app.room.send (input.files [0])
+        },
     },
 })
 

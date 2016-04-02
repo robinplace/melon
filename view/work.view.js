@@ -45,7 +45,6 @@ const WorkView = AndView.extend ({
         })
     },
     events: {
-        'click [data-hook=thumbdrive]':   function () { this.swap ('thumbdrive') },
         'click [data-hook=drawingboard]': function () { this.swap ('drawingboard') },
         'click [data-hook=todo]':         function () { this.swap ('todo') },
         'click [data-hook=brainstorm]':   function () { this.swap ('brainstorm') },

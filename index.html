@@ -71,6 +71,13 @@ button.flat:hover::after { bottom: -8px; height: 8px; }
 button.flat:active { top: 4px; transition: none; }
 button.flat:active::after { top: -4px; height: 4px; transition: none; }
 
+.shadow button.flat { top: 0; }
+.shadow button.flat::after { bottom: 0; height: 0; }
+.shadow:hover+button.flat { top: -8px; }
+.shadow:hover+button.flat::after { bottom: -8px; height: 8px; }
+.shadow:active+button.flat { top: 4px; transition: none; }
+.shadow:active+button.flat::after { top: -4px; height: 4px; transition: none; }
+
 .green {
     background-color: #2ecc71;
 }
