@@ -1,0 +1,94 @@
+<!DOCTYPE html/>
+<link href='https://code.cdn.mozilla.net/fonts/fira.css' rel='stylesheet' type='text/css'>
+
+	<style>
+body{
+	margin: 0px;
+	padding: 0px;
+	font-family: fira sans;
+	background-color:#34495e;
+}
+
+.loadingIcon{
+	position: absolute;
+	top:12.5%;
+	left: 12%;
+	margin-top:0px;
+	z-index: 99999;
+}
+
+.loadingIcon img{
+	height: 78%;
+	animation-name: rotate;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+@keyframes rotate {
+	from{
+		transform: rotate(0deg) translate(5px);
+	}
+	to{
+		transform: rotate(360deg) translate(5px);
+	}
+}
+
+.topText{
+	position:absolute;
+	top: 18%;
+	left: 35%;
+	color:#fff;
+	font-size:1.75vw;
+}
+
+.largeText{
+	position:absolute;
+	top:25%;
+	left: 35%;
+	color: #fff;
+	font-size:3.25vw;
+}
+
+.real{
+	position:absolute;
+	top: 60%;
+	left: 35%;
+	color: #fff;
+	font-size:1vw;
+	font-weight: 300;
+	font-style: italic;
+}
+
+.loadingRep{
+	width:85%;
+	height:35%;
+	position:relative;
+	top:35%;
+	background-color: #16a085;
+}
+
+.melonIcon{
+	position:absolute;
+	top:70%;
+	left: 80%;
+	height:30%;
+	width:20%;
+}
+	</style>
+
+<body>
+	<div class="loadingRep">
+		<div class="loadingIcon">
+			<img src="images/Bumpy.svg"/>
+		</div>
+		<h1 class="topText">
+			CONNECTING YOUR SESSION
+		</h1>
+		<h1 class="largeText">
+			YOUR TABLE MIGHT BE LOADING...
+		</h1>
+		<h1 class="real">
+			- Stuff that is happening
+		</h1>
+	</div>
+</body>
