@@ -48,12 +48,12 @@ const Peers = AndCollection.extend ({
         this.listenTo (this.peer, 'call', function (media) {
             let peer = this.get (media.id)
             if (!peer) return
-
+                console.log ('got a call')
             peer.answer ()
             media.on ('stream', function (stream) {
                 let audio = document.createElement ('audio')
                 audio.src = URL.createObjectURL (stream)
-
+                console.log ('added the call')
                 document.body.appendChild (audio)
             })
         })
