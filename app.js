@@ -11,7 +11,7 @@ app.view = new AppView ({
 app.messages = {
     'making':  [ 'STARTING WORKTABLE', 'We\'re starting up your group', 'Contacting the room server...' ],
     'joining': [ 'JOINING WORKTABLE', 'Connecting you with your group', 'Contacting peers...' ],
-    'authing': [ 'GETTING PERMISSION', 'You\'re group will be including you shortly', 'Waiting for response...' ],
+    'authing': [ 'GETTING PERMISSION', 'Your group will be including you soon', 'Waiting for response...' ],
     '...': [ 'CONNECTING', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
 }
 // start working

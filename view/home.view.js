@@ -8,6 +8,7 @@ const HomeView = AndView.extend ({
     template: require ('../template/home.html'),
     initialize: function () {
         this.render ()
+        this.queryByHook ('code').value = this.workView.code
     },
     props: {
         workView: 'state',
@@ -16,16 +17,6 @@ const HomeView = AndView.extend ({
         'workView.code': {
             type: 'value',
             hook: 'code',
-        },
-        'workView.talking': {
-            type: 'switchAttribute',
-            selector: '[data-hook=talk] img',
-            name: 'src',
-            cases: {
-                off: 'assets/off.svg',
-                talking: 'assets/talking.svg',
-                muted: 'assets/muted.svg',
-            },
         },
     },
     render: function () {

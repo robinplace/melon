@@ -6,7 +6,7 @@ const app = require ('ampersand-app')
 
 const Item = State.extend ({
     props: {
-        done: 'boolean',
+        done: [ 'boolean', true, false ],
         text: 'string',
     },
 })

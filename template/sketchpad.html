@@ -1,95 +1,9 @@
 <div>
 <style>
-html, body{
-	width:100%;
-	height:100%;
-}
-
-*{
-	margin:0;
-	padding: 0;
-}
-
 #sketchpad {
-	width: 100%;
-	height: 100%;
+    cursor: default;
+    background-color: #fff;
 }
-
-img {max-height: 80%; max-width: 80%; margin: 0 auto; padding: 0;}
-
-.grey {
-	top: 0;
-	bottom: 0;
-	position: fixed;
-	background-color: #2c3e50;
-	display: block;
-	font-size: 40px;
-	height: 100%;
-	overflow: auto;
-	left: 10%;
-}
-.button {
-	border-bottom: 0px;
-	border: 0;
-	margin: 0;
-	outline: 0;
-}
-.button:hover {
-	box-shadow: 0 -10px 0 rgba(0,0,0,.5) inset;
-}
-.button:active {
-	padding-top: -15px;
-	box-shadow: 0 5px 0 rgba(0,0,0,.5) inset;
-	border: 0;
-}
-.sidebar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0px;
-	width: 10%;
-	padding: 0;
-	margin: 0;
-	background-color: #2c3e50; 
-}
-.sidebar button {
-	position: relative;
-	height: 12%;
-	width: 100%;
-}
-.sidebar.current {
-	width: 105%;
-	height: 12%;
-	padding-left: 2%;
-	padding-right: -2%;
-	padding-top: 5%;
-	padding-bottom: -5%;
-}
-.sidebarSix   {height: 30%; width: 100%;}
-.sidebarSix img {position: relative; top: 50%; margin-top: -40%;}
-
-.melon {
-	background-color: #c0392b;
-}
-.drawingboard {
-	background-color: #f39c12;
-}
-.thumbdrive {
-	background-color: #d35400;
-}
-.talk {
-	background-color: #8e44ad;
-}
-.todo {
-	background-color: #27ae60;
-}
-.brainstorm {
-	background-color: #2980b9;
-}
-
-
-
-
 
 /*Drawing Board Styles*/
 .board {
@@ -120,154 +34,38 @@ img {max-height: 80%; max-width: 80%; margin: 0 auto; padding: 0;}
 	height: 12%;
 }
 
-.notification {
-	margin: 0;
-	position: fixed;
-	top: 0;
-	left: 50%;
-	margin-left: -15%;
-	width: 30%;
-	z-index: 100;
-	text-align: center;
-	padding: 10px 0;
-}
-.notify {
-	background-color: rgba(0,0,0,.2);
-}
 .color {
 	border-radius: 100px;
 	width: 25px;
 	height: 25px;
 	margin: 15px auto;
 }
-	</style>
+.canvasarea {
+	width: 100%;
+	height: 100%;
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    overflow: auto;
+}
+</style>
 
 
-</head>
+<div class="canvasarea">
+    <canvas id="sketchpad" data-hook="pad" width="2000" height="1000"></canvas>
+</div>
 
-<element>
-<body onload="init()" >
-    <canvas id="sketchpad">
-    </canvas>
-</body>
-</element>
-		<element>
-			<section class="board">
-				<menu class="tools">
-					<img class="tool" src="images/draw.svg"/>
-					<img onclick="" class="tool" src="images/erase.svg"/>
-					<div onclick="" class="color todo"></div>
-					<div onclick="" class="color drawingboard"></div>
-					<div onclick="" class="color talk"></div>
-					<div onclick="" class="color brainstorm"></div>
-					<div onclick="" class="color thumbdrive"></div>
-				</menu>
-			</section>
-		</element>
-		<element>
-		<body onload="init()" >
-			<canvas id="sketchpad" class="sketchBoard">
-			</canvas>
-		</body>
-		</element>
-		<menu class="sidebar">
-				<button class="button sidebarOne   thumbdrive"><img src="images/drive.svg"/></button>
-				<button class="button sidebarTwo   drawingboard"><img src="images/drawboard.svg"/></button>
-				<button class="button sidebarThree todo"><img src="images/todo.svg"/></button>
-				<button class="button sidebarFour  brainstorm"><img src="images/brainstorm.svg"/></button>
-				<button class="button sidebarFive  talk"><img onclick="reverse(this)" class="changer" src=""/></button>
-				<div class="button sidebarSix      resize"><img src="images/resize.svg"/></div>
-				<button class="button sidebarSeven melon"><img src="images/melon.svg"/></button>
-		</menu>
-</html>
+<section class="board">
+    <menu class="tools">
+        <img data-color="#000" class="tool" src="assets/draw.svg"/>
+        <img data-color="#000" class="tool" src="assets/erase.svg"/>
+        <div data-color="#000" class="color todo"></div>
+        <div data-color="#000" class="color drawingboard"></div>
+        <div data-color="#000" class="color talk"></div>
+        <div data-color="#000" class="color brainstorm"></div>
+        <div data-color="#000" class="color thumbdrive"></div>
+    </menu>
+</section>
 
-<script type="text/javascript">
-    var canvas,ctx;
-	
-	//var canvasPacketData[];
-    var mouseX,mouseY,mouseDown=0//,mouseXPrev,mouseYPrev;
-    function drawDot(ctx,x,y,size) {
-        ctx.beginPath();
-        ctx.arc(x, y, size, 0, Math.PI*2, true); 
-        ctx.closePath();
-        ctx.fill();
-    }
-	
-	function drawLine(ctx,x,y,dx,dy,size){
-		
-		ctx.beginPath();
-		ctx.moveTo(x,y);
-		ctx.lineTo(dx,dy);
-		ctx.lineWidth = size;
-		ctx.stroke();
-		
-		
-	}
-	
-	window.addEventListener('resize',resizeCanvas,false);
-	
-	function resizeCanvas()
-	{
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
-		console.log('here');
-	}
-	
-	
-	
-    function clearCanvas(canvas,ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-    function sketchpad_mouseDown() {
-        mouseDown=1;
-        drawDot(ctx,mouseX,mouseY,0);
-    }
-    function sketchpad_mouseUp() {
-        mouseDown=0;
-    }
-	
-	
-    function getMousePos(e) {
-        if (!e)
-            var e = event;
-        if (e.offsetX) {
-            mouseX = e.offsetX;
-            mouseY = e.offsetY;
-        }
-        else if (e.layerX) {
-            mouseX = e.layerX;
-            mouseY = e.layerY;
-        }
-     }
-	function setColor(hex){
-		ctx.fillStyle = hex;
-		ctx.lineStyle = hex;
-	}
-	 
-	function sketchpad_mouseMove(e) { 
-		mouseXPrev = mouseX;
-		mouseYPrev = mouseY;
-		
-        getMousePos(e);
-        if (mouseDown==1) {
-            drawLine(ctx,mouseX,mouseY,mouseXPrev,mouseYPrev,10);
-			drawDot(ctx,mouseX,mouseY,4.5);
-        }
-		
-		setColor(0,0,0);
-    }
-    function init() {
-        canvas = document.getElementById('sketchpad');
-		
-		resizeCanvas();
-		
-        if (canvas.getContext)
-            ctx = canvas.getContext('2d');
-        if (ctx) {
-            canvas.addEventListener('mousedown', sketchpad_mouseDown, false);
-            canvas.addEventListener('mousemove', sketchpad_mouseMove, false);
-            window.addEventListener('mouseup', sketchpad_mouseUp, false);
-        }
-    }
-</script>
+
 </div>

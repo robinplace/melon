@@ -3,7 +3,7 @@ body {
 	padding:0;
 	color: white;
 	font-family: fira sans;
-	font-weight: 300;
+	font-weight: 200;
 	overflow: hidden;
 	width: 100%;
 	height: 100%;
@@ -28,10 +28,10 @@ img { width: auto; height: auto; }
 /*Devider line: only on melon*/
 line {
 	position: absolute;
-	top: 20%;
-	bottom: 40%;
+	top: 35%;
+	bottom: 25%;
 	left: 50%;
-	border: 5px solid #DDD;
+	border: 4px solid #DDD;
 }
 
 /*grey background, inputs, and text*/
@@ -42,7 +42,7 @@ line {
     left: 0; right: 0;
 }
 .grey {
-	top: 30%;
+	top: 42%;
 	position: fixed;
 	display: block;
 	font-size: 40px;
@@ -91,7 +91,7 @@ footer, .footer {
 }
 .block {
 	width: 20%;
-	height: 90px;
+	height: 105px;
 	padding: 0;
 	padding-top: 10px;
 	margin-top: 10px;
@@ -121,8 +121,8 @@ footer, .footer {
 /*generic color styles*/
 .block img,
 .sidebar img {
-    height: 80%;
-    width: 80%;
+    height: 90%;
+    width: 90%;
     margin: 0 auto;
     padding: 0;
 }
@@ -406,12 +406,12 @@ main{
 	background-color: #2c3e50; 
 }
 .sidebar button {
-	height: 12%;
+	height: 17%;
 	width: 100%;
     margin: 0;
 }
 .sidebar .shadow {
-    height: 12%;
+    height: 17%;
     width: 100%;
     margin: 0;
 }
@@ -423,7 +423,7 @@ main{
 	padding-top: 5%;
 	padding-bottom: -5%;
 }
-.sidebarSix   {height: 40%; width: 100%;}
+.sidebarSix   {height: 15%; width: 100%;}
 .sidebarSix img {position: relative; top: 40%; left: 8%; margin-top: -40%;}
 
 
@@ -557,6 +557,7 @@ main{
     transform: scale(1.1);
     visibility: collapse;
     transition: 200ms 0.8s;
+    font-weight: 500;
 }
 .loadingPage.open{
     opacity: 1;
@@ -638,4 +639,22 @@ main{
 .melonIcon img{
     height: 100%;
     width: 100%;
+}
+
+.logo {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-weight: 200;
+    top: 2%;
+    font-size: 110px;
+    vertical-align: middle;
+}
+.logo img {
+    width: 15%;
+}
+.logo a {
+    display: inline-block;
+    position: relative;
+    top: -50px;
 }

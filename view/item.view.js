@@ -12,6 +12,18 @@ const ItemView = AndView.extend ({
         editing: 'boolean',
     },
     bindings: {
+        'model.done': [
+            { type: 'booleanClass', name: 'done' },
+            {
+                type: 'switchAttribute',
+                selector: '[data-hook=done]',
+                name: 'src',
+                cases: {
+                    true: 'assets/todo.svg',
+                    false: 'assets/unchecked.svg',
+                }
+            },
+        ],
         'model.text': {
             type: 'text',
             hook: 'text',
@@ -56,9 +68,6 @@ const ItemView = AndView.extend ({
             this.model.collection.remove (this.model.uuid)
         },
         'click [data-hook=done]': function (ev) {
-            if (ev.keyCode !== 13) return
-            if (!this.editing) return
-            this.editing = false
             this.model.collection.add ({
                 counter: this.model.counter,
                 creator: this.model.creator,
