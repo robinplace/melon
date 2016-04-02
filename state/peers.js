@@ -19,6 +19,7 @@ const Peers = AndCollection.extend ({
             port: 443,
             path: '/melon/peerjs',
             secure: true,
+
             debug: 3,
         })
 
