@@ -15,6 +15,22 @@ const WorkView = AndView.extend ({
             this.brainstorm = new BrainstormView ({ collection: room.brainstorm })
         })
     },
+    props: {
+        code: 'string',
+        talking: 'string',
+    },
+    bindings: {
+        'talking': {
+            type: 'switchAttribute',
+            selector: '[data-hook=talk] img',
+            name: 'src',
+            cases: {
+                off: 'assets/off.svg',
+                talking: 'assets/talking.svg',
+                muted: 'assets/muted.svg',
+            },
+        },
+    },
     render: function () {
         this.renderWithTemplate ()
 
@@ -27,6 +43,13 @@ const WorkView = AndView.extend ({
                 window.title = newView.title
             },
         })
+    },
+    events: {
+        'click [data-hook=thumbdrive]':   function () { this.swap ('thumbdrive') },
+        'click [data-hook=drawingboard]': function () { this.swap ('drawingboard') },
+        'click [data-hook=todo]':         function () { this.swap ('todo') },
+        'click [data-hook=brainstorm]':   function () { this.swap ('brainstorm') },
+        'click [data-hook=talk]':         function () { app.view.toggleTalk () },
     },
     swap: function (page) {
         this.switcher.set (this [page])

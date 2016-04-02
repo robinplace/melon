@@ -11,6 +11,10 @@ const HomeView = require ('./home.view')
 const WorkView = require ('./work.view')
 
 const AppView = AndView.extend ({
+    props: {
+        code: 'string',
+        talking: [ 'string', true, 'off' ],
+    },
     initialize: function () {
         this.startView = new StartView ({})
         this.workingView = new WorkingView ({}) // loading screen
@@ -21,7 +25,10 @@ const AppView = AndView.extend ({
 
         this.switcher.set (this.startView)
         this.on ('change:code', function () {
-            this.homeView.code = this.code
+            this.workView.code = this.code
+        })
+        this.on ('change:talking', function () {
+            this.workView.talking = this.talking
         })
     },
     render: function () {
@@ -45,8 +52,12 @@ const AppView = AndView.extend ({
         this.workView.swap (page)
         this.switcher.set (this.workView)
     },
-    props: {
-        code: 'string',
+    toggleTalk: function () {
+        if (app.room.peers.talking) {
+            app.room.peers.untalk ()
+        } else {
+            app.room.peers.talk ()
+        }
     },
 })
 

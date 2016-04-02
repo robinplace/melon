@@ -10,6 +10,7 @@ const Peer = AndState.extend ({
     },
     session: {
         data: 'object',
+        media: 'object',
     },
     initialize: function () {
         if (!this.data) {
@@ -17,6 +18,9 @@ const Peer = AndState.extend ({
                 reliable: true,
                 serialization: 'none',
             })
+        }
+        if (this.collection.talking) {
+            this.media = this.collection.peer.call (this.id, this.collection.stream)
         }
 
         this.listenTo (this.data, 'data', function (data) {
@@ -44,6 +48,14 @@ const Peer = AndState.extend ({
             console.log ('error', arguments)
             debugger
             this.trigger ('destroy', this, this.collection)
+        })
+
+        this.listenTo (this.collection, 'change:talking', function () {
+            if (this.collection.talking) {
+                this.media = this.collection.peer.call (this.id, this.collection.stream)
+            } else {
+                this.media.close ()
+            }
         })
     },
     send: function (event, data) {
