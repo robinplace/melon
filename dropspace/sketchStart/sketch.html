@@ -1,29 +1,64 @@
 <html>
 <head>
 <title>Sketchpad</title>
+<link rel="stylesheet" href="sketchStyle.css"/>
+
+</head>
+
+<element>
+<body onload="init()" >
+	<div class="SketchboardSideBar">
+	
+	</div>
+    <canvas id="sketchpad" class="sketchBoard">
+    </canvas>
+</body>
+</element>
+</html>
 
 <script type="text/javascript">
-
     var canvas,ctx;
+	
+	//var canvasPacketData[];
 
     var mouseX,mouseY,mouseDown=0//,mouseXPrev,mouseYPrev;
     function drawDot(ctx,x,y,size) {
-        r=0; g=0; b=0; a=255;
-        ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
 
         ctx.beginPath();
         ctx.arc(x, y, size, 0, Math.PI*2, true); 
         ctx.closePath();
         ctx.fill();
-    } 
-
+    }
+	
+	function drawLine(ctx,x,y,dx,dy,size){
+		
+		ctx.beginPath();
+		ctx.moveTo(x,y);
+		ctx.lineTo(dx,dy);
+		ctx.lineWidth = size;
+		ctx.stroke();
+		
+		
+	}
+	
+	window.addEventListener('resize',resizeCanvas,false);
+	
+	function resizeCanvas()
+	{
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		console.log('here');
+	}
+	
+	
+	
     function clearCanvas(canvas,ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     function sketchpad_mouseDown() {
         mouseDown=1;
-        drawDot(ctx,mouseX,mouseY,2);
+        drawDot(ctx,mouseX,mouseY,0);
     }
     function sketchpad_mouseUp() {
         mouseDown=0;
@@ -44,19 +79,29 @@
         }
      }
 	 
+	function setColor(r,g,b){
+		ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
+	}
+	 
 	function sketchpad_mouseMove(e) { 
-		//mouseXPrev = mouseX;
-		//mouseYPrev = mouseY;
+		mouseXPrev = mouseX;
+		mouseYPrev = mouseY;
+		
         getMousePos(e);
 
         if (mouseDown==1) {
-            drawDot(ctx,mouseX,mouseY,2);
+            drawLine(ctx,mouseX,mouseY,mouseXPrev,mouseYPrev,10);
+			drawDot(ctx,mouseX,mouseY,4.5);
         }
+		
+		setColor(0,0,0);
     }
 
     function init() {
         canvas = document.getElementById('sketchpad');
-
+		
+		resizeCanvas();
+		
         if (canvas.getContext)
             ctx = canvas.getContext('2d');
 
@@ -67,11 +112,3 @@
         }
     }
 </script>
-</head>
-
-<body onload="init()" class="sketchBoard">
-        <canvas id="sketchpad" height="100%" width="100%" class="sketchBoard">
-        </canvas>
-    </div>
-</body>
-</html>

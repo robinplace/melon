@@ -1,4 +1,23 @@
-.sketchBoard{
-	width:100%;
-	height:100%;
+.sketchboardSideBar{
+position:absolute;
+background-color:#34495e;
+height:75%;
+width:10%;
+border-radius: 1.5vw;
+top:12.5%;
+left:88%;
+}
+
+html, body{
+width:100%;
+height:100%;
+}
+
+*{
+margin:0;
+padding: 0;
+}
+
+#sketchpad {
+	display: block;
 }
