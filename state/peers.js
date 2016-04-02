@@ -15,7 +15,10 @@ const Peers = AndCollection.extend ({
     },
     initialize: function () {
         if (!this.peer) this.peer = new PeerJS ({
-            key: 'e8e62owin9kep14i',
+            host: 'turleys.xyz',
+            port: 443,
+            path: '/melon/peerjs',
+            secure: true,
             debug: 3,
         })
 
