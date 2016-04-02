@@ -38,6 +38,11 @@ const Peers = AndCollection.extend ({
             })
         })
     },
+    send: function (event, data) {
+        this.forEach (function (peer) {
+            peer.send (event, data)
+        })
+    },
 })
 
 module.exports = Peers

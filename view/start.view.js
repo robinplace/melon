@@ -10,37 +10,53 @@ const StartView = AndView.extend ({
     },
     events: {
         'click [data-hook=start]': function () {
-            // TODO show the loading box
+            app.working ('making')
+
             let room = new Room ()
             app.room = room
 
-            room.once ('peerready', function () {
-                // TODO let them know that we're having success
-            })
-            room.once ('roomready', function () {
-                alert ('it is good and you got '+room.code)
+            this.listenToOnce (room, 'roomready', function () {
+                app.done ()
+                console.log (room.code)
+                // TODO show the home page
             })
             room.makeRoom ()
+        },
+        'keydown [data-hook=join]': function (ev) {
+            this.failed = false
         },
         'keyup [data-hook=join]': function (ev) {
             if (ev.target.value.length < 6) return
             let code = ev.target.value
+            ev.target.value = ''
+            ev.target.disabled = true
 
-            // TODO show the loading box
+            app.working ('joining')
+
             let room = new Room ()
             app.room = room
 
-            room.once ('badcode', function () {
+            this.listenToOnce (room, 'badcode', function () {
+                app.done ()
+                this.failed = true
+                ev.target.disabled = false
                 // TODO hide the box and make what happened clear
             })
-            room.once ('peerready', function () {
-                // TODO let them know that we're having success
+            this.listenToOnce (room, 'askingpermission', function () {
+                app.working ('authing')
             })
-            room.once ('roomready', function () {
-                alert ('it is good')
+            this.listenToOnce (room, 'roomready', function () {
+                app.done ()
+                // TODO show the home page
             })
             room.joinRoom (code)
-
+        },
+    },
+    bindings: {
+        'failed': {
+            type: 'booleanClass',
+            hook: 'join',
+            name: 'failed',
         },
     },
 })
