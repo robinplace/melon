@@ -3,20 +3,11 @@
 <meta charset="UTF-8"/>
 <link rel="shortcut icon" href="./favicon.png">
 <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="bundle.css"/>
 
-<title>Work Together | Melon</title>
+<title>Work Together---Melon</title>
 
 <body>
-
-<!--<link href="bundle.css" rel="stylesheet">-->
-
-<!--
-<h1>Melon</h1>
-
-<button class="green">Accept</button>
-<br/>
-<input type="text" placeholder="••••••"/>
--->
 
 <style>
 body {
@@ -73,6 +64,13 @@ button:hover::after { bottom: -7px; height: 7px; }
 button:active { top: -2px; transition: none; }
 button:active::after { bottom: -2px; height: 2px; transition: none; }
 
+button.flat { top: 0; }
+button.flat::after { bottom: 0; height: 0; }
+button.flat:hover { top: -8px; }
+button.flat:hover::after { bottom: -8px; height: 8px; }
+button.flat:active { top: 4px; transition: none; }
+button.flat:active::after { top: -4px; height: 4px; transition: none; }
+
 .green {
     background-color: #2ecc71;
 }
@@ -93,18 +91,6 @@ button:active::after { bottom: -2px; height: 2px; transition: none; }
 .overlay.open {
     visibility: visible;
     transition: none;
-}
-
-
-.notification {
-    position: absolute;
-    top: 30px;
-    left: 200px;
-    right: 200px;
-    height: 70px;
-    padding: 10px;
-    background-color: #fff;
-    color: #000;
 }
 </style>
 

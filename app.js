@@ -9,8 +9,8 @@ app.view = new AppView ({
 })
 
 app.messages = {
-    'making':  [ 'STARTING YOUR WORKTABLE', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
-    'joining': [ 'JOINING WORKTABLE 000000', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
+    'making':  [ 'STARTING WORKTABLE', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
+    'joining': [ 'JOINING WORKTABLE', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
     'authing': [ 'WAITING TO BE LET IN', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
     '...': [ 'CONNECTING', 'YOUR SESSION MIGHT BE LOADING...', 'Stuff is happening' ],
 }

@@ -12,10 +12,12 @@ const Peer = AndState.extend ({
         data: 'object',
     },
     initialize: function () {
-        if (!this.data) this.data = this.collection.peer.connect (this.id, {
-            reliable: true,
-            serialization: 'none',
-        })
+        if (!this.data) {
+            this.data = this.collection.peer.connect (this.id, {
+                reliable: true,
+                serialization: 'none',
+            })
+        }
 
         this.listenTo (this.data, 'data', function (data) {
             if (data.constructor === ArrayBuffer) {
@@ -24,6 +26,8 @@ const Peer = AndState.extend ({
                 let index = data.indexOf ('\n')
                 let event = data.slice (0, index)
                 data = data.slice (index + 1)
+
+                console.log ('incoming', event, data)
 
                 this.trigger (event, this, JSON.parse (data))
             }
@@ -43,6 +47,8 @@ const Peer = AndState.extend ({
         })
     },
     send: function (event, data) {
+        console.log ('outgoing', event, data)
+
         let peer = this
         let message = event + '\n' + JSON.stringify (data)
         if (!peer.data.open) {

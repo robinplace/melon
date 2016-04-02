@@ -18,7 +18,7 @@ const StartView = AndView.extend ({
             this.listenToOnce (room, 'roomready', function () {
                 app.done ()
                 console.log (room.code)
-                // TODO show the home page
+                this.goHome ()
             })
             room.makeRoom ()
         },
@@ -40,17 +40,19 @@ const StartView = AndView.extend ({
                 app.done ()
                 this.failed = true
                 ev.target.disabled = false
-                // TODO hide the box and make what happened clear
             })
             this.listenToOnce (room, 'askingpermission', function () {
                 app.working ('authing')
             })
             this.listenToOnce (room, 'roomready', function () {
                 app.done ()
-                // TODO show the home page
+                this.goHome ()
             })
             room.joinRoom (code)
         },
+    },
+    goHome: function () {
+        app.view.goHome ()
     },
     bindings: {
         'failed': {

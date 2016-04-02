@@ -7,7 +7,7 @@ const Peer = require ('./peer')
 
 const Peers = AndCollection.extend ({
     model: Peer,
-    mainIndex: 'uuid',
+    mainIndex: 'id',
 
     session: {
         peer: 'object',
@@ -15,7 +15,7 @@ const Peers = AndCollection.extend ({
     },
     initialize: function () {
         if (!this.peer) this.peer = new PeerJS ({
-            key: 'bv00je62msdr6bt9',
+            key: 'e8e62owin9kep14i',
             debug: 3,
         })
 

@@ -6,9 +6,10 @@ const isFunction = require ('lodash.isfunction')
 const app = require ('ampersand-app')
 const Svr = require ('./svr')
 const Peers = require ('./peers')
+const NotificationDialogView = require ('../view/notification.dialog.view')
 const NotificationView = require ('../view/notification.view')
 
-//const Brainstorm = require ('./state/brainstorm')
+const Brainstorm = require ('./brainstorm')
 
 // THIS SHOULD SORTA BE A VIEW
 const Room = AndState.extend ({
@@ -18,12 +19,26 @@ const Room = AndState.extend ({
     },
     collections: {
         peers: Peers,
+
+        brainstorm: Brainstorm,
     },
+    addins: function () {
+        this.addin ('brainstorm')
+    },
+    addin: function (name) {
+        let collection = this [name]
+
+        this.listenTo (collection, 'add', function (state, collection, options) { if (!options.remote) this.peers.send ('add-'+name, state.toJSON ()) })
+        this.listenTo (this.peers, 'add-'+name, function (peer, data) { console.log ('add', name, data); collection.add (data, { remote: true }) })
+
+        this.listenTo (collection, 'remove', function (state, collection, options) { if (!options.remote) this.peers.send ('remove-'+name, state.uuid) })
+        this.listenTo (this.peers, 'remove-'+name, function (peer, uuid) { console.log ('remove', name, uuid); collection.remove (uuid, { remote: true }) })
+
+        this.collections.push (name)
+    },
+
     session: {
         id: 'string',
-    },
-    children: {
-        //brainstorm: Brainstorm,
     },
     initialize: function () {
         let room = this
@@ -33,7 +48,13 @@ const Room = AndState.extend ({
             room.trigger ('peersready')
         })
 
+        this.collections = []
+
         this.setupPeerListeners ()
+
+        this.on ('roomready', function () {
+            app.trigger ('inroom', this)
+        })
     },
     makeRoom: function (callback) {
         let room = this
@@ -42,6 +63,7 @@ const Room = AndState.extend ({
                 if (err) return app.err ('make failed')
 
                 room.code = code
+                app.view.code = code
                 room.secret = secret
 
                 if (isFunction (callback)) callback.call (room, null, code, secret)
@@ -62,6 +84,7 @@ const Room = AndState.extend ({
                 }
 
                 room.code = code // store the room code
+                app.view.code = code
 
                 users = users.map (function (userId) {
                     return { id: userId }
@@ -101,27 +124,47 @@ const Room = AndState.extend ({
     setupPeerListeners: function () {
         let room = this
         this.peers.on ('auth?', function (peer, data) {
-            app.notify (new NotificationView ({
-                title: data.name + ' wants to join',
-                message: 'Do you know this friend?',
+            app.notify (new NotificationDialogView ({
+                title: data.name + '\'d like to join your worktable',
                 ok: 'Welcome',
-                cancel: 'Skedaddle!',
+                cancel: 'Reject',
             }).on ('ok', function () {
                 peer.send ('auth', { secret: room.secret })
             }).on ('cancel', function () {
                 peer.send ('auth', { secret: false })
             }))
         })
-        this.peers.on ('whatsup?', function (peer, data) {
+        this.listenTo (this.peers, 'whatsup?', function (peer, data) {
             let secret = data.secret
             if (secret !== room.secret) return
 
+            app.notify (new NotificationView ({
+                title: 'The user joined you!',
+                timeout: 1000,
+            }))
+
             peer.send ('whatsup', room.serialize ())
+            let removeds = {}
+            this.collections.forEach (function (name) {
+                removeds [name] = room [name].removed
+            })
+            peer.send ('whatsnot', removeds)
         })
-        this.peers.on ('whatsup', function (peer, data) {
-            debugger
-            this.set (this.parse (data))
+        this.listenTo (this.peers, 'whatsup', function (peer, data) {
+            data.peers = []
+            this.set (data, { merge: false, remove: false })
         })
+        this.listenTo (this.peers, 'whatsnot', function (peer, removeds) {
+            for (let name in removeds) {
+                let removed = removeds [name]
+                let collection = room [name]
+                for (let uuid in removed) {
+                    collection.remove (uuid)
+                }
+            }
+        })
+
+        this.addins ()
     },
 })
 
