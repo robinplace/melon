@@ -76,8 +76,8 @@ const Peers = AndCollection.extend ({
 
         navigator.getUserMedia = navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedi
         navigator.getUserMedia ({ audio: true, video: false }, function (stream) {
-            this.stream = stream
-            this.talking = true
+            peer.stream = stream
+            peer.talking = true
         }, function () {})
     },
     untalk: function () {
