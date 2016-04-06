@@ -5,7 +5,7 @@ const isFunction = require ('lodash.isfunction')
 var assign = require('lodash.assign');
 
 const Svr = {
-    url: './rooms/',
+    url: document.location.pathname+'rooms/',
     make: function (user, callback) {
         var svr = this
         $.ajax (this.url, {

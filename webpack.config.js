@@ -14,10 +14,20 @@ module.exports = {
                 loader: 'babel', query: { presets: ['es2015'] } }
         ],
     },
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'eval',
     plugins: [
         new webpack.ProvidePlugin({
             _: 'lodash',
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+            },
+            output: {
+                comments: false,
+                semicolons: false,
+            },
+            sourceMap: true,
         }),
     ],
 }
